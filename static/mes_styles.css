@@ -1,0 +1,112 @@
+table ,tr {
+  table-layout: fixed;
+  width: 80%;
+    height: 40px;
+  border-collapse: collapse;
+  border: 1px solid black;
+  background-color: grey;
+}
+
+a {
+    width:150px;
+    height: 30px;
+    background-color:grey;
+    border: 1px black groove ;
+    text-align:center;
+    vertical-align: middle;
+    padding: 5px;
+    margin : 5px;
+    border-radius: 15px;
+}
+
+.flashes {
+    padding: 5px;
+    margin : 5px;
+    background-color: grey;
+    list-style-type: none;
+}
+
+table ,tr {
+  table-layout: fixed;
+  width: 80%;
+    height: 40px;
+  border-collapse: collapse;
+  border: 1px solid black;
+  background-color: dimgrey;
+}
+
+a {
+    width:150px;
+    height: 30px;
+    background-color:lightskyblue;
+    border: 1px black groove ;
+    text-align: center;
+    vertical-align: middle;
+    padding: 5px;
+    margin : 5px;
+    border-radius: 15px;
+}
+
+.flashes {
+    padding: 5px;
+    margin : 5px;
+}
+
+.alert-warning {
+    background-color: rgb(144, 49, 49);
+}
+.alert-success {
+    background-color: #39a839;
+}
+
+table{
+    width: 100%;
+}
+
+tr{
+    height: 10%;
+}
+td{
+    text-align: center;
+    height: 50px;
+}
+
+.cards-filtres{
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 15px;
+}
+
+.cards{
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 10px 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    width: 22%;
+    background-color: grey;
+
+}
+
+.card-content{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.card-left{
+    font-weight: bold;
+}
+
+.card-right{
+}
+
+.filtres-title{
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.filtres-content{
+    margin-left: 15px;
+}
