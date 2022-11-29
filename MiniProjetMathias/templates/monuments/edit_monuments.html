@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>modifier un monument</title>
+{% endblock %}
+
+{% block body %}
+  <h2>modifier un monument</h2>
+  {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+  {% endif %}
+  <form method="post" action="/monuments/edit">
+    <fieldset>
+        <legend> Modifier le monument</legend>
+
+        <input type="hidden" name="id" size="18" value="{{ monuments.id }}" id="id">
+
+        <label for="nomMonument">nom</label><br>
+        <input id="nom" type="text" name="nomMonument" size="18" value="{{ monuments.nomMonument }}" placeholder="Saisir le nom"><br>
+
+        <select name="departement_id" required>
+            <option value="">Sélectionner le département</option>
+            {% for type in departements %}
+                 <option value="{{ type.id }}"> {{ type.nomDepartement }} </option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="prix">Prix</label><br>
+        <input id="prix" type="number" name="prix" size="18" value="{{ monuments.prix }}" placeholder="Saisir le prix" ><br>
+
+        <label for="dateCreation">date de Création </label><br>
+        <input id="dateCreation" type="date" name="dateCreation" size="18" value="{{ monuments.dateCreation }}" placeholder="Saisir la date de création"><br>
+
+        <label for="noteMichelin">note Michelin</label><br>
+        <input id="noteMichelin" type="number" name="noteMichelin" size="18" value="{{ monuments.noteMichelin }}" placeholder="Saisir la note Michelin"><br>
+
+        <label for="description">description </label><br>
+        <input id="description" type="text" name="description" size="18" value="{{ monuments.description }}" placeholder="Saisir la description"><br>
+
+        <input type="submit" value="Modifier" name="Modifier" >
+    </fieldset>
+  </form>
+{% endblock %}

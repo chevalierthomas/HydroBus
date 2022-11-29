@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Afficher les départements</title>
+{% endblock %}
+
+{% block body %}
+<h3>Départements</h3>
+<a href="/departements/add">ajouter un département</a>
+<br><br>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>id</th><th>designation</th><th>opération</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% if departements | length >= 1 %}
+        {% for ligne in departements %}
+           <tr>
+                  <td>{{ ligne.id }}</td>
+                  <td>{{ ligne.nomDepartement }}</td>
+                  <td>
+                      <a class="edit" href="/departements/edit?id={{ ligne.id }}&amp;param2={{ligne.nomDepartement  }}">editer</a>&nbsp;
+                      <a class="remove" href="/departements/delete?id={{ ligne.id }}" >supprimer</a>
+                  </td>
+           </tr>
+        {% endfor %}
+    {% else %}
+            <tr>
+                  <td>
+                      pas de département
+                  </td>
+           </tr>
+    {% endif %}
+    </tbody>
+</table>
+{% endblock %}
