@@ -3,8 +3,30 @@
 from flask import Flask, request, render_template, redirect, url_for, abort, flash
 
 app = Flask(__name__)
-app.secret_key = 'une cle(token) : thomas le sang(any random string)'
+app.secret_key = 'une cle(token) : grain de sel(any random string)'
 
+## à ajouter
+from flask import session, g
+import pymysql.cursors
+
+def get_db():
+    if 'db' not in g:
+        g.db = pymysql.connect(
+            host="localhost",  # à modifier
+            user="mnotter",  # à modifier
+            password="1504",  # à modifier
+            database="BDD_mnotter",  # à modifier
+            charset='utf8mb4',
+            cursorclass=pymysql.cursors.DictCursor
+        )
+    return g.db
+
+
+@app.teardown_appcontext
+def teardown_db(exception):
+    db = g.pop('db', None)
+    if db is not None:
+        db.close()
 #departements=[
 #    {'id':1, 'nomDepartement':'Bouche du Rhône'},
 #    {'id':2, 'nomDepartement':'Gard'},

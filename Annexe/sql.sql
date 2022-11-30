@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS  bus, modele, revision, typeIncident, anneeConsommation, reservoir, consomme, subit, fait, recoit;
+DROP TABLE IF EXISTS  fait, recoit, reservoir, consomme, subit, bus, modele, revision, typeIncident, anneeConsommation;
 
 CREATE TABLE bus(
    idBus INT AUTO_INCREMENT,

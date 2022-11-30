@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS bus, modele, revision, typeIncident, anneeConsommation, fait, accident, consommation, reservoir, recoit;
+DROP TABLE IF EXISTS recoit, reservoir, consommation, accident, fait, anneeConsommation, typeIncident, revision, modele, bus;
 
 CREATE TABLE bus(
    idBus INT,
@@ -162,3 +162,14 @@ INSERT INTO recoit (idRecoit, dateRevisionReservoir, IdRevision, idReservoir) VA
 (1,'2022-08-08',5,4),
 (2,'2021-06-08',8,2)
 ;
+
+SELECT * FROM bus;
+SELECT * FROM modele;
+SELECT * FROM revision;
+SELECT * FROM typeIncident;
+SELECT * FROM anneeConsommation;
+SELECT * FROM fait;
+SELECT * FROM accident;
+SELECT * FROM consommation;
+SELECT * FROM reservoir;
+SELECT * FROM recoit;
