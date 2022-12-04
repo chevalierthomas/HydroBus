@@ -1,21 +1,48 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>modifier un département</title>
+    <title>modifier une consommation</title>
 {% endblock %}
 
 {% block body %}
-  <h2>modifier un département</h2>
+  <h2>modifier une consommation</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
-  <form method="post" action="/departements/edit">
+
+  <form method="post" action="/consommation/edit">
     <fieldset>
-        <legend> Modifier un département</legend>
-        <input type="hidden" name="id" size="18" value="{{ departements.id  }}" id="id"><br>
-        <label for="nomDepartement">Département</label><br>
-        <input type="text" name="nomDepartement" size="18" value="{{ departements.nomDepartement  }}" id="nomDepartement"><br>
-        <input type="submit" value="Modifier" name="Modifier" >
+        <legend> Modifier une consommation</legend>
+        <input type="hidden" name="id-Consommation" value="{{ consommation.idConsommation }}">
+        <label for="nbconsommation">Consommation</label>
+        <br>
+        <input id="nbconsommation" type="number" name="nbconsommation" size="18" value="{{ consommation.nbconsommation }}">
+        <br>
+        <label for="distance">Distance</label>
+        <br>
+        <input id="distance" type="number" name="distance" size="18" value="{{ consommation.distance }}">
+        <br>
+        <label for="anneeConsommation">Annee</label>
+        <br>
+        <select id="anneeConsommation" name="anneeConsommation" required>
+            <option value="{{ consommation.annee }}">{{ consommation.annee }}</option>
+            {% for type in anneeConsommation %}
+                <option value="{{ type.annee }}"> {{ type.annee }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="id-Bus">Bus</label>
+        <br>
+        <select id="id-Bus" name="id-Bus" required>
+            <option value="{{ consommation.idBus }}">{{ consommation.idBus }}</option>
+            {% for type in bus %}
+                <option value="{{ type.idBus }}"> {{ type.idBus }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <input type="submit" value="Editer" name="Editer" >
     </fieldset>
   </form>
 {% endblock %}

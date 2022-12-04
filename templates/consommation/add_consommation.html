@@ -1,20 +1,48 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>ajouter un département</title>
+    <title>ajouter une consommation</title>
 {% endblock %}
 
 {% block body %}
-  <h2>ajout d'un département</h2>
+  <h2>ajout d'une consommation</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
-  <form method="post" action="/departements/add" >
+
+  <form method="post" action="/consommation/add" >
     <fieldset>
-        <legend> Créer un département</legend>
-        <label for="libelle">libelle</label><br>
-        <input id="nomDepartement" type="text" name="libelle" size="18" value="" placeholder="Saisir le nom du département"><br>
+        <legend> Créer une consommation</legend>
+        <label for="nbconsommation">Consommation</label>
+        <br>
+        <input required="required" id="nbconsommation" type="number" name="nbconsommation" size="18" value="" placeholder="Saisir la consommation">
+        <br>
+        <label for="distance">Distance</label>
+        <br>
+        <input required="required" id="distance" type="number" name="distance" size="18" value="" placeholder="Saisir la distance parcourue">
+        <br>
+        <label for="anneeConsommation">Annee</label>
+        <br>
+        <select id="anneeConsommation" name="anneeConsommation" required>
+            <option value="">Sélectionner l'année</option>
+            {% for type in anneeConsommation %}
+                <option value="{{ type.annee }}"> {{ type.annee }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="id-Bus">Bus</label>
+        <br>
+        <select id="id-Bus" name="id-Bus" required>
+            <option value="">Sélectionner le bus</option>
+            {% for type in bus %}
+                <option value="{{ type.idBus }}"> {{ type.idBus }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
         <input type="submit" value="Creer" name="Valider" >
+
     </fieldset>
   </form>
 {% endblock %}

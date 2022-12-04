@@ -20,12 +20,12 @@
         {% for ligne in consommation %}
            <tr>
               <td>{{ ligne.idConsommation }}</td>
-              <td>{{ ligne.consommation }}</td>
+              <td>{{ ligne.nbconsommation }}</td>
               <td>{{ ligne.distance }}</td>
               <td>{{ ligne.annee }}</td>
               <td>{{ ligne.idBus }}</td>
               <td>
-                  <a class="edit" href="/consommation/edit?id={{ ligne.idConsommation }}&amp;param2={{ligne.idBus  }}">editer</a>&nbsp;
+                  <a class="edit" href="/consommation/edit?id={{ ligne.idConsommation }}">editer</a>&nbsp;
                   <a class="remove" href="/consommation/delete?id={{ ligne.idConsommation }}" >supprimer</a>
               </td>
            </tr>

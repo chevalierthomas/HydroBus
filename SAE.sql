@@ -61,7 +61,7 @@ CREATE TABLE accident(
 
 CREATE TABLE consommation(
    idConsommation INT AUTO_INCREMENT,
-   consommation INT,
+   nbconsommation INT,
    distance INT,
    annee INT NOT NULL,
    idBus INT NOT NULL,
@@ -141,7 +141,7 @@ INSERT INTO accident(idAccident, dateAccident, idType, idBus) VALUES
 (NULL, '2021-11-14', 1, 1)
 ;
 
-INSERT INTO consommation(idConsommation, consommation, distance, annee, idBus) VALUES
+INSERT INTO consommation(idConsommation, nbconsommation, distance, annee, idBus) VALUES
 (NULL,84,865,2020,4),
 (NULL,49,537,2020,5),
 (NULL,501,18400,2021,1),

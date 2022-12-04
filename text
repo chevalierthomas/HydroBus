@@ -20,6 +20,9 @@ def edit_accident():
 @app.route('/accident/edit', methods=['POST'])
 def valid_edit_accident():
     return redirect('/accident/show')
+
+
+
 @app.route('/anneeConsommation/show')
 def show_anneeConsommation():
     return render_template('anneeConsommation/show_anneeConsommation.html')
@@ -41,71 +44,9 @@ def edit_anneeConsommation():
 @app.route('/anneeConsommation/edit', methods=['POST'])
 def valid_edit_anneeConsommation():
     return redirect('/anneeConsommation/show')
-@app.route('/bus/show')
-def show_bus():
-    return render_template('bus/show_bus.html')
-@app.route('/bus/add', methods=['GET'])
-def add_bus():
-    return render_template('bus/add_bus.html')
-@app.route('/bus/add', methods=['POST'])
-def valid_add_bus():
-    return redirect('/bus/show')
-@app.route('/bus/delete', methods=['GET'])
-def delete_bus():
-    return redirect('/bus/show')
-@app.route('/bus/delete', methods=['POST'])
-def valid_delete_bus():
-    return redirect('/bus/show')
-@app.route('/bus/edit', methods=['GET'])
-def edit_bus():
-    return render_template('bus/edit_bus.html')
-@app.route('/bus/edit', methods=['POST'])
-def valid_edit_bus():
-    return redirect('/bus/show')
 
-@app.route('/consommation/show')
-def show_consommation():
-    return render_template('consommation/show_consommation.html')
-@app.route('/consommation/add', methods=['GET'])
-def add_consommation():
-    return render_template('consommation/add_consommation.html')
-@app.route('/consommation/add', methods=['POST'])
-def valid_add_consommation():
-    return redirect('/consommation/show')
-@app.route('/consommation/delete', methods=['GET'])
-def delete_consommation():
-    return redirect('/consommation/show')
-@app.route('/consommation/delete', methods=['POST'])
-def valid_delete_consommation():
-    return redirect('/consommation/show')
-@app.route('/consommation/edit', methods=['GET'])
-def edit_consommation():
-    return render_template('consommation/edit_consommation.html')
-@app.route('/consommation/edit', methods=['POST'])
-def valid_edit_consommation():
-    return redirect('/consommation/show')
 
-@app.route('/fait/show')
-def show_fait():
-    return render_template('fait/show_fait.html')
-@app.route('/fait/add', methods=['GET'])
-def add_fait():
-    return render_template('fait/add_fait.html')
-@app.route('/fait/add', methods=['POST'])
-def valid_add_fait():
-    return redirect('/fait/show')
-@app.route('/fait/delete', methods=['GET'])
-def delete_fait():
-    return redirect('/fait/show')
-@app.route('/fait/delete', methods=['POST'])
-def valid_delete_fait():
-    return redirect('/fait/show')
-@app.route('/fait/edit', methods=['GET'])
-def edit_fait():
-    return render_template('fait/edit_fait.html')
-@app.route('/fait/edit', methods=['POST'])
-def valid_edit_fait():
-    return redirect('/fait/show')
+
 
 @app.route('/modele/show')
 def show_modele():
@@ -129,30 +70,6 @@ def edit_modele():
 def valid_edit_modele():
     return redirect('/modele/show')
 
-@app.route('/recoit/show')
-def show_recoit():
-    return render_template('recoit/show_recoit.html')
-@app.route('/recoit/add', methods=['GET'])
-def add_recoit():
-    return render_template('recoit/add_recoit.html')
-@app.route('/recoit/add', methods=['POST'])
-def valid_add_recoit():
-    return redirect('/recoit/show')
-@app.route('/recoit/delete', methods=['GET'])
-def delete_recoit():
-    return redirect('/recoit/show')
-@app.route('/recoit/delete', methods=['POST'])
-def valid_delete_recoit():
-    return redirect('/recoit/show')
-@app.route('/recoit/edit', methods=['GET'])
-def edit_recoit():
-    return render_template('recoit/edit_recoit.html')
-@app.route('/recoit/edit', methods=['POST'])
-def valid_edit_recoit():
-    return redirect('/recoit/show')
-
-
-
 
 @app.route('/revision/show')
 def show_revision():
@@ -175,6 +92,10 @@ def edit_revision():
 @app.route('/revision/edit', methods=['POST'])
 def valid_edit_revision():
     return redirect('/revision/show')
+
+
+
+
 @app.route('/typeIncident/show')
 def show_typeIncident():
     return render_template('typeIncident/show_typeIncident.html')

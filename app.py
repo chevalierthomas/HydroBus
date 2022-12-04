@@ -268,7 +268,7 @@ def edit_recoit():
     sql3 = """SELECT res.*
               FROM reservoir res"""
     bdd1.execute(sql1)
-    bdd2.execute(sql2, (idRecoit))
+    bdd2.execute(sql2, [idRecoit])
     bdd3.execute(sql3)
     revision = bdd1.fetchall()
     recoit = bdd2.fetchone()
@@ -305,18 +305,83 @@ def show_consommation():
     return render_template('consommation/show_consommation.html', consommation=consommation)
 @app.route('/consommation/add', methods=['GET'])
 def add_consommation():
-    return render_template('consommation/add_consommation.html')
+    bdd1 = get_db().cursor()
+    bdd2 = get_db().cursor()
+    sql1 = """SELECT a.*
+              FROM anneeConsommation a"""
+    sql2 = """SELECT b.*
+              FROM bus b"""
+    bdd1.execute(sql1)
+    bdd2.execute(sql2)
+    anneeConsommation = bdd1.fetchall()
+    bus = bdd2.fetchall()
+    return render_template('consommation/add_consommation.html', anneeConsommation=anneeConsommation, bus=bus)
 @app.route('/consommation/add', methods=['POST'])
 def valid_add_consommation():
+    nbconsommation = request.form.get('nbconsommation', '')
+    distance = request.form.get('distance', '')
+    anneeConsommation = request.form.get('anneeConsommation', '')
+    idBus = request.form.get('id-Bus', '')
+    bdd = get_db().cursor()
+    sql = """INSERT INTO consommation (
+              nbconsommation,
+              distance,
+              annee,
+              idBus)
+              VALUES (%s, %s, %s, %s)"""
+    bdd.execute(sql,(nbconsommation, distance, anneeConsommation, idBus))
+    get_db().commit()
+    message = u'Consommation ajoutée, consommation : ' + nbconsommation + ', distance : '+ distance + ', annee : ' + anneeConsommation + ', idBus : ' + idBus
+    flash(message, 'alert-success')
     return redirect('/consommation/show')
 @app.route('/consommation/delete', methods=['GET'])
 def delete_consommation():
+    idConsommation = request.args.get('id', '')
+    bdd = get_db().cursor()
+    sql = "DELETE FROM consommation WHERE idConsommation = %s"
+    bdd.execute(sql, idConsommation)
+    get_db().commit()
+    message = u'Consommation supprimée, ID: ' + idConsommation
+    flash(message, 'alert-danger')
     return redirect('/consommation/show')
 @app.route('/consommation/edit', methods=['GET'])
 def edit_consommation():
-    return render_template('consommation/edit_consommation.html')
+    idConsommation = request.args.get('id', '')
+    bdd1 = get_db().cursor()
+    bdd2 = get_db().cursor()
+    bdd3 = get_db().cursor()
+    sql1 = """SELECT a.*
+              FROM anneeConsommation a"""
+    sql2 = """SELECT c.*
+              FROM consommation c
+              WHERE idConsommation = %s"""
+    sql3 = """SELECT b.*
+              FROM bus b"""
+    bdd1.execute(sql1)
+    bdd2.execute(sql2, [idConsommation])
+    bdd3.execute(sql3)
+    anneeConsommation = bdd1.fetchall()
+    consommation = bdd2.fetchone()
+    bus = bdd3.fetchall()
+    return render_template('consommation/edit_consommation.html', anneeConsommation=anneeConsommation, consommation=consommation, bus=bus)
 @app.route('/consommation/edit', methods=['POST'])
 def valid_edit_consommation():
+    bdd = get_db().cursor()
+    idConsommation = request.form.get('id-Consommation', '')
+    nbconsommation = request.form.get('nbconsommation', '')
+    distance = request.form.get('distance', '')
+    anneeConsommation = request.form.get('anneeConsommation', '')
+    idBus = request.form.get('id-Bus', '')
+    sql = """UPDATE consommation
+             SET nbconsommation = %s,
+                 distance = %s,
+                 annee = %s,
+                 idBus = %s
+                 WHERE idConsommation = %s"""
+    bdd.execute(sql, [nbconsommation, distance, anneeConsommation, idBus, idConsommation])
+    get_db().commit()
+    message = u'Consommation modifiée, consomme : ' + nbconsommation + ', distance : ' + distance + ', annee : ' + anneeConsommation + ', Bus : ' + idBus
+    flash(message, 'alert-warning')
     return redirect('/consommation/show')
 
 
