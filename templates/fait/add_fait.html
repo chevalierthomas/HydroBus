@@ -1,20 +1,46 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>ajouter un département</title>
+    <title>ajouter une révision faite</title>
 {% endblock %}
 
 {% block body %}
-  <h2>ajout d'un département</h2>
+  <h2>ajout d'une révision faite par un bus</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
-  <form method="post" action="/departements/add" >
+
+  <form method="post" action="/fait/add" >
     <fieldset>
-        <legend> Créer un département</legend>
-        <label for="libelle">libelle</label><br>
-        <input id="nomDepartement" type="text" name="libelle" size="18" value="" placeholder="Saisir le nom du département"><br>
+        <legend> Créer un révison faite par un bus</legend>
+
+        <label for="date-Revision">Date de la révision faite</label>
+        <br>
+        <input id="date-Revision" type="date" name="date-Revision" size="18" value="" placeholder="Saisir la date de la révision faite">
+        <br>
+        <br>
+        <label for="id-Revision">Révision faite</label>
+        <br>
+        <select id="id-Revision" name="id-Revision" required>
+            <option value="">Sélectionner la révision faite</option>
+            {% for type in revision %}
+                <option value="{{ type.idRevision }}"> {{ type.idRevision }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="id-Bus">Bus</label>
+        <br>
+        <select id="id-Bus" name="id-Bus" required>
+            <option value="">Sélectionner le bus</option>
+            {% for type in bus %}
+                <option value="{{ type.idBus }}"> {{ type.idBus }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
         <input type="submit" value="Creer" name="Valider" >
+
     </fieldset>
   </form>
 {% endblock %}

@@ -1,36 +1,38 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>Afficher les départements</title>
+    <title>Afficher les révisions faites</title>
 {% endblock %}
 
 {% block body %}
-<h3>Départements</h3>
-<a href="/departements/add">ajouter un département</a>
+<h3>Révisions faites</h3>
+<a href="/fait/add">ajouter une révision faite</a>
 <br><br>
 
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>id</th><th>designation</th><th>opération</th>
+            <th>id fait</th><th>Date de la révision faite</th><th>id de la révision</th><th>id du bus</th><th>option</th>
         </tr>
     </thead>
     <tbody>
-    {% if departements | length >= 1 %}
-        {% for ligne in departements %}
+    {% if fait | length >= 1 %}
+        {% for ligne in fait %}
            <tr>
-                  <td>{{ ligne.id }}</td>
-                  <td>{{ ligne.nomDepartement }}</td>
-                  <td>
-                      <a class="edit" href="/departements/edit?id={{ ligne.id }}&amp;param2={{ligne.nomDepartement  }}">editer</a>&nbsp;
-                      <a class="remove" href="/departements/delete?id={{ ligne.id }}" >supprimer</a>
-                  </td>
+              <td>{{ ligne.idFait }}</td>
+              <td>{{ ligne.dateRevisionBus }}</td>
+              <td>{{ ligne.idRevision }}</td>
+              <td>{{ ligne.idBus }}</td>
+              <td>
+                  <a class="edit" href="/fait/edit?id={{ ligne.idFait }}">editer</a>&nbsp;
+                  <a class="remove" href="/fait/delete?id={{ ligne.idFait }}" >supprimer</a>
+              </td>
            </tr>
         {% endfor %}
     {% else %}
             <tr>
                   <td>
-                      pas de département
+                      pas de révision dernièrement faite
                   </td>
            </tr>
     {% endif %}

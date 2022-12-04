@@ -1,36 +1,38 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>Afficher les départements</title>
+    <title>Afficher les révisions reçues</title>
 {% endblock %}
 
 {% block body %}
-<h3>Départements</h3>
-<a href="/departements/add">ajouter un département</a>
+<h3>Révisions reçues</h3>
+<a href="/recoit/add">ajouter une révison reçue</a>
 <br><br>
 
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>id</th><th>designation</th><th>opération</th>
+            <th>id reçoit</th><th>Date de la révision reçue</th><th>id de la révision</th><th>id du réservoir</th><th>option</th>
         </tr>
     </thead>
     <tbody>
-    {% if departements | length >= 1 %}
-        {% for ligne in departements %}
+    {% if recoit | length >= 1 %}
+        {% for ligne in recoit %}
            <tr>
-                  <td>{{ ligne.id }}</td>
-                  <td>{{ ligne.nomDepartement }}</td>
+                  <td>{{ ligne.idRecoit }}</td>
+                  <td>{{ ligne.dateRevisionReservoir }}</td>
+                  <td>{{ ligne.idRevision }}</td>
+                  <td>{{ ligne.idReservoir }}</td>
                   <td>
-                      <a class="edit" href="/departements/edit?id={{ ligne.id }}&amp;param2={{ligne.nomDepartement  }}">editer</a>&nbsp;
-                      <a class="remove" href="/departements/delete?id={{ ligne.id }}" >supprimer</a>
+                      <a class="edit" href="/recoit/edit?id={{ ligne.idRecoit }}&amp;param2={{ligne.idRevision  }}">editer</a>&nbsp;
+                      <a class="remove" href="/recoit/delete?id={{ ligne.idRecoit }}" >supprimer</a>
                   </td>
            </tr>
         {% endfor %}
     {% else %}
             <tr>
                   <td>
-                      pas de département
+                      pas de révision dernièrement reçu
                   </td>
            </tr>
     {% endif %}

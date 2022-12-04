@@ -1,21 +1,39 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>modifier un département</title>
+    <title>modifier un réservoir</title>
 {% endblock %}
 
 {% block body %}
-  <h2>modifier un département</h2>
+  <h2>modifier un réservoir</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
-  <form method="post" action="/departements/edit">
+  <form method="post" action="/reservoir/edit">
     <fieldset>
-        <legend> Modifier un département</legend>
-        <input type="hidden" name="id" size="18" value="{{ departements.id  }}" id="id"><br>
-        <label for="nomDepartement">Département</label><br>
-        <input type="text" name="nomDepartement" size="18" value="{{ departements.nomDepartement  }}" id="nomDepartement"><br>
-        <input type="submit" value="Modifier" name="Modifier" >
+        <input type="hidden" name="id-Reservoir" value="{{ reservoir.idReservoir }}">
+        <legend> Modifier un réservoir</legend>
+        <label for="id-Modele">Modèle</label>
+        <br>
+        <select id="id-Modele" name="id-Modele" required>
+            <option value="{{ reservoir.idModele }}">{{ reservoir.idModele }}</option>
+            {% for type in modele %}
+                <option value="{{ type.idModele }}"> {{ type.idModele }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="id-Bus">Bus</label>
+        <br>
+        <select id="id-Bus" name="id-Bus" required>
+            <option value="{{ reservoir.idBus }}">{{ reservoir.idBus }}</option>
+            {% for type in bus %}
+                <option value="{{ type.idBus }}"> {{ type.idBus }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <input type="submit" value="Editer" name="Editer" >
     </fieldset>
   </form>
 {% endblock %}

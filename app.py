@@ -21,100 +21,162 @@ def get_db():
         )
     return g.db
 
-
 @app.teardown_appcontext
 def teardown_db(exception):
     db = g.pop('db', None)
     if db is not None:
         db.close()
-#departements=[
-#    {'id':1, 'nomDepartement':'Bouche du Rhône'},
-#    {'id':2, 'nomDepartement':'Gard'},
-#    {'id':3, 'nomDepartement':'Vaucluse'},
-#]
-
-#monuments = [
-#    {'id':1,'nomMonument':'Château d If', 'description':'description Château d If', 'dateCreation':'1529-01-01', 'noteMichelin':4, 'departement_id':1, 'prix':10.5},
-#    {'id':2,'nomMonument':'Basilique Notre-Dame de la Garde', 'description':'description Basilic Notre-Dame de la Garde', 'dateCreation':'1700-08-09', 'noteMichelin':3, 'departement_id':1, 'prix':0},
-#    {'id':3,'nomMonument':'Pont du Gard', 'description':'description Pont du Gard', 'dateCreation':'0500-01-01', 'noteMichelin':5, 'departement_id':2, 'prix':15},
-#    {'id':4,'nomMonument':'La Maison Carrée', 'description':'description La Masion Carrée', 'dateCreation':'0500-01-01', 'noteMichelin':4, 'departement_id':2, 'prix':10.5},
-#    {'id':5,'nomMonument':'Palais des Papes', 'description':'description Palais des Papes', 'dateCreation':'1500-09-09', 'noteMichelin':5, 'departement_id':1, 'prix':6},
-#    {'id':6,'nomMonument':'Musée du Petit Palais', 'description':'description Musée du Petit Palais', 'dateCreation':'1900-08-09', 'noteMichelin':4, 'departement_id':1, 'prix':5}
-#]
 
 @app.route('/')
 def show_accueil():
     return render_template('layout.html')
 
-@app.route('/accident/show')
-def show_accident():
-    return render_template('accident/show_accident.html')
-@app.route('/accident/add', methods=['GET'])
-def add_accident():
-    return render_template('accident/add_accident.html')
-@app.route('/accident/add', methods=['POST'])
-def valid_add_accident():
-    return redirect('/accident/show')
-@app.route('/accident/delete', methods=['GET'])
-def delete_accident():
-    return redirect('/accident/show')
-@app.route('/accident/delete', methods=['POST'])
-def valid_delete_accident():
-    return redirect('/accident/show')
-@app.route('/accident/edit', methods=['GET'])
-def edit_accident():
-    return render_template('accident/edit_accident.html')
-@app.route('/accident/edit', methods=['POST'])
-def valid_edit_accident():
-    return redirect('/accident/show')
+@app.route('/reservoir/show')
+def show_reservoir():
+    bdd = get_db().cursor()
+    sql = """SELECT r.*, m.idModele, idB.idBus
+             FROM reservoir r
+             LEFT JOIN modele m ON r.idModele = m.idModele
+             LEFT JOIN bus idB ON r.idBus = idB.idBus
+             ORDER BY r.idReservoir"""
+    bdd.execute(sql)
+    reservoir = bdd.fetchall()
+    return render_template('reservoir/show_reservoir.html', reservoir=reservoir)
+@app.route('/reservoir/add', methods=['GET'])
+def add_reservoir():
+    bdd1 = get_db().cursor()
+    bdd2 = get_db().cursor()
+    sql1 = """SELECT m.*
+              FROM modele m"""
+    sql2 = """SELECT b.*
+              FROM bus b"""
+    bdd1.execute(sql1)
+    bdd2.execute(sql2)
+    modele = bdd1.fetchall()
+    bus = bdd2.fetchall()
+    return render_template('reservoir/add_reservoir.html', modele=modele, bus=bus)
+@app.route('/reservoir/add', methods=['POST'])
+def valid_add_reservoir():
+    idModele = request.form.get('id-Modele', '')
+    idBus = request.form.get('id-Bus', '')
+    bdd = get_db().cursor()
+    sql = """INSERT INTO reservoir (
+              idModele,
+              idBus)
+              VALUES (%s, %s)"""
+    bdd.execute(sql,(idModele, idBus))
+    get_db().commit()
+    message = u'Réservoir ajouté, idModèle: '+ idModele + ', idBus : ' + idBus
+    flash(message, 'alert-success')
+    return redirect('/reservoir/show')
+@app.route('/reservoir/delete', methods=['GET'])
+def delete_reservoir():
+    idReservoir = request.args.get('id', '')
+    bdd = get_db().cursor()
+    sql = "DELETE FROM reservoir WHERE idReservoir = %s"
+    bdd.execute(sql, idReservoir)
+    get_db().commit()
+    message = u'Réservoir supprimé, ID: ' + idReservoir
+    flash(message, 'alert-danger')
+    return redirect('/reservoir/show')
+@app.route('/reservoir/edit', methods=['GET'])
+def edit_reservoir():
+    idReservoir = request.args.get('id', '')
+    bdd1 = get_db().cursor()
+    bdd2 = get_db().cursor()
+    bdd3 = get_db().cursor()
+    sql1 = """SELECT m.*
+              FROM modele m"""
+    sql2 = """SELECT r.*
+             FROM reservoir r
+             WHERE idReservoir = %s"""
+    sql3 = """SELECT bus.*
+              FROM bus"""
+    bdd1.execute(sql1)
+    bdd2.execute(sql2, (idReservoir))
+    bdd3.execute(sql3)
+    modele = bdd1.fetchall()
+    reservoir = bdd2.fetchone()
+    bus = bdd3.fetchall()
+    return render_template('reservoir/edit_reservoir.html', modele=modele, reservoir=reservoir, bus=bus)
+@app.route('/reservoir/edit', methods=['POST'])
+def valid_edit_reservoir():
+    bdd = get_db().cursor()
+    idReservoir = request.form.get('id-Reservoir', '')
+    idModele = request.form.get('id-Modele', '')
+    idBus = request.form.get('id-Bus', '')
+    sql = """UPDATE reservoir
+             SET idModele = %s,
+                 idBus = %s
+                 WHERE idReservoir = %s"""
+    bdd.execute(sql, [idModele, idBus, idReservoir])
+    get_db().commit()
+    message = u'Réservoir modifié, ID: ' + idReservoir + ', Modele: ' + idModele + ', Bus : ' + idBus
+    flash(message, 'alert-warning')
+    return redirect('/reservoir/show')
 
-@app.route('/anneeConsommation/show')
-def show_anneeConsommation():
-    return render_template('anneeConsommation/show_anneeConsommation.html')
-@app.route('/anneeConsommation/add', methods=['GET'])
-def add_anneeConsommation():
-    return render_template('anneeConsommation/add_anneeConsommation.html')
-@app.route('/anneeConsommation/add', methods=['POST'])
-def valid_add_anneeConsommation():
-    return redirect('/anneeConsommation/show')
-@app.route('/anneeConsommation/delete', methods=['GET'])
-def delete_anneeConsommation():
-    return redirect('/anneeConsommation/show')
-@app.route('/anneeConsommation/delete', methods=['POST'])
-def valid_delete_anneeConsommation():
-    return redirect('/anneeConsommation/show')
-@app.route('/anneeConsommation/edit', methods=['GET'])
-def edit_anneeConsommation():
-    return render_template('anneeConsommation/edit_anneeConsommation.html')
-@app.route('/anneeConsommation/edit', methods=['POST'])
-def valid_edit_anneeConsommation():
-    return redirect('/anneeConsommation/show')
+@app.route('/fait/show')
+def show_fait():
+    bdd = get_db().cursor()
+    sql = """SELECT f.*, idR.idRevision, idB.idBus
+             FROM fait f
+             LEFT JOIN revision idR ON f.idRevision = idR.idRevision
+             LEFT JOIN bus idB ON f.idBus = idB.idBus
+             ORDER BY f.idFait"""
+    bdd.execute(sql)
+    fait = bdd.fetchall()
+    return render_template('fait/show_fait.html', fait=fait)
+@app.route('/fait/add', methods=['GET'])
+def add_fait():
+    bdd1 = get_db().cursor()
+    bdd2 = get_db().cursor()
+    sql1 = """SELECT r.*
+              FROM revision r"""
+    sql2 = """SELECT b.*
+              FROM bus b"""
+    bdd1.execute(sql1)
+    bdd2.execute(sql2)
+    revision = bdd1.fetchall()
+    bus = bdd2.fetchall()
+    return render_template('fait/add_fait.html', revision=revision, bus=bus)
+@app.route('/fait/add', methods=['POST'])
+def valid_add_fait():
+    dateRevisionBus = request.form.get('date-Revision', '')
+    idRevision = request.form.get('id-Revision', '')
+    idBus = request.form.get('id-Bus', '')
+    bdd = get_db().cursor()
+    sql = """INSERT INTO fait (
+              dateRevisionBus,
+              idRevision,
+              idBus)
+              VALUES (%s, %s, %s)"""
+    bdd.execute(sql,(dateRevisionBus, idRevision, idBus))
+    get_db().commit()
+    message = u'Révision faite ajouté, date de la révision : ' + dateRevisionBus + ', idRévision: '+ idRevision + ', idBus : ' + idBus
+    flash(message, 'alert-success')
+    return redirect('/fait/show')
+@app.route('/fait/delete', methods=['GET'])
+def delete_fait():
+    return redirect('/fait/show')
 
-@app.route('/bus/show')
-def show_bus():
-    return render_template('bus/show_bus.html')
-@app.route('/bus/add', methods=['GET'])
-def add_bus():
-    return render_template('bus/add_bus.html')
-@app.route('/bus/add', methods=['POST'])
-def valid_add_bus():
-    return redirect('/bus/show')
-@app.route('/bus/delete', methods=['GET'])
-def delete_bus():
-    return redirect('/bus/show')
-@app.route('/bus/delete', methods=['POST'])
-def valid_delete_bus():
-    return redirect('/bus/show')
-@app.route('/bus/edit', methods=['GET'])
-def edit_bus():
-    return render_template('bus/edit_bus.html')
-@app.route('/bus/edit', methods=['POST'])
-def valid_edit_bus():
-    return redirect('/bus/show')
+@app.route('/fait/edit', methods=['GET'])
+def edit_fait():
+    return render_template('fait/edit_fait.html')
+@app.route('/fait/edit', methods=['POST'])
+def valid_edit_fait():
+    return redirect('/fait/show')
 
 @app.route('/consommation/show')
 def show_consommation():
-    return render_template('consommation/show_consommation.html')
+    bdd = get_db().cursor()
+    sql = """SELECT c.*, a.annee, idB.idBus
+             FROM consommation c
+             LEFT JOIN anneeConsommation a ON c.annee = a.annee
+             LEFT JOIN bus idB ON c.idBus = idB.idBus
+             ORDER BY c.idConsommation"""
+    bdd.execute(sql)
+    consommation = bdd.fetchall()
+    return render_template('consommation/show_consommation.html', consommation=consommation)
 @app.route('/consommation/add', methods=['GET'])
 def add_consommation():
     return render_template('consommation/add_consommation.html')
@@ -134,53 +196,17 @@ def edit_consommation():
 def valid_edit_consommation():
     return redirect('/consommation/show')
 
-@app.route('/fait/show')
-def show_fait():
-    return render_template('fait/show_fait.html')
-@app.route('/fait/add', methods=['GET'])
-def add_fait():
-    return render_template('fait/add_fait.html')
-@app.route('/fait/add', methods=['POST'])
-def valid_add_fait():
-    return redirect('/fait/show')
-@app.route('/fait/delete', methods=['GET'])
-def delete_fait():
-    return redirect('/fait/show')
-@app.route('/fait/delete', methods=['POST'])
-def valid_delete_fait():
-    return redirect('/fait/show')
-@app.route('/fait/edit', methods=['GET'])
-def edit_fait():
-    return render_template('fait/edit_fait.html')
-@app.route('/fait/edit', methods=['POST'])
-def valid_edit_fait():
-    return redirect('/fait/show')
-
-@app.route('/modele/show')
-def show_modele():
-    return render_template('modele/show_modele.html')
-@app.route('/modele/add', methods=['GET'])
-def add_modele():
-    return render_template('modele/add_modele.html')
-@app.route('/modele/add', methods=['POST'])
-def valid_add_modele():
-    return redirect('/modele/show')
-@app.route('/modele/delete', methods=['GET'])
-def delete_modele():
-    return redirect('/modele/show')
-@app.route('/modele/delete', methods=['POST'])
-def valid_delete_modele():
-    return redirect('/modele/show')
-@app.route('/modele/edit', methods=['GET'])
-def edit_modele():
-    return render_template('modele/edit_modele.html')
-@app.route('/modele/edit', methods=['POST'])
-def valid_edit_modele():
-    return redirect('/modele/show')
-
 @app.route('/recoit/show')
 def show_recoit():
-    return render_template('recoit/show_recoit.html')
+    bdd = get_db().cursor()
+    sql = """SELECT r.*, idRev.idRevision, idRes.idReservoir
+             FROM recoit r
+             LEFT JOIN revision idRev ON r.idRevision = idRev.idRevision
+             LEFT JOIN reservoir idRes ON r.idReservoir = idRes.idReservoir
+             ORDER BY r.idRecoit"""
+    bdd.execute(sql)
+    recoit = bdd.fetchall()
+    return render_template('recoit/show_recoit.html', recoit=recoit)
 @app.route('/recoit/add', methods=['GET'])
 def add_recoit():
     return render_template('recoit/add_recoit.html')
@@ -200,70 +226,6 @@ def edit_recoit():
 def valid_edit_recoit():
     return redirect('/recoit/show')
 
-@app.route('/reservoir/show')
-def show_reservoir():
-    return render_template('reservoir/show_reservoir.html')
-@app.route('/reservoir/add', methods=['GET'])
-def add_reservoir():
-    return render_template('reservoir/add_reservoir.html')
-@app.route('/reservoir/add', methods=['POST'])
-def valid_add_reservoir():
-    return redirect('/reservoir/show')
-@app.route('/reservoir/delete', methods=['GET'])
-def delete_reservoir():
-    return redirect('/reservoir/show')
-@app.route('/reservoir/delete', methods=['POST'])
-def valid_delete_reservoir():
-    return redirect('/reservoir/show')
-@app.route('/reservoir/edit', methods=['GET'])
-def edit_reservoir():
-    return render_template('reservoir/edit_reservoir.html')
-@app.route('/reservoir/edit', methods=['POST'])
-def valid_edit_reservoir():
-    return redirect('/reservoir/show')
 
-@app.route('/revision/show')
-def show_revision():
-    return render_template('revision/show_revision.html')
-@app.route('/revision/add', methods=['GET'])
-def add_revision():
-    return render_template('revision/add_revision.html')
-@app.route('/revision/add', methods=['POST'])
-def valid_add_revision():
-    return redirect('/revision/show')
-@app.route('/revision/delete', methods=['GET'])
-def delete_revision():
-    return redirect('/revision/show')
-@app.route('/revision/delete', methods=['POST'])
-def valid_delete_revision():
-    return redirect('/revision/show')
-@app.route('/revision/edit', methods=['GET'])
-def edit_revision():
-    return render_template('revision/edit_revision.html')
-@app.route('/revision/edit', methods=['POST'])
-def valid_edit_revision():
-    return redirect('/revision/show')
-
-@app.route('/typeIncident/show')
-def show_typeIncident():
-    return render_template('typeIncident/show_typeIncident.html')
-@app.route('/typeIncident/add', methods=['GET'])
-def add_typeIncident():
-    return render_template('typeIncident/add_typeIncident.html')
-@app.route('/typeIncident/add', methods=['POST'])
-def valid_add_typeIncident():
-    return redirect('/typeIncident/show')
-@app.route('/typeIncident/delete', methods=['GET'])
-def delete_typeIncident():
-    return redirect('/typeIncident/show')
-@app.route('/typeIncident/delete', methods=['POST'])
-def valid_delete_typeIncident():
-    return redirect('/typeIncident/show')
-@app.route('/typeIncident/edit', methods=['GET'])
-def edit_typeIncident():
-    return render_template('typeIncident/edit_typeIncident.html')
-@app.route('/typeIncident/edit', methods=['POST'])
-def valid_edit_typeIncident():
-    return redirect('/typeIncident/show')
 if __name__ == '__main__':
     app.run()

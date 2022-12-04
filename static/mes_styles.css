@@ -14,6 +14,7 @@ table ,tr {
 body{
     margin: 0px;
 
+
 }
 .flashes {
     padding: 5px;
@@ -28,7 +29,7 @@ tr{
 .menu{
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     height: 60px;
     width: 100%;
@@ -39,14 +40,15 @@ tr{
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
 
 }
 .menuContent a{
     text-decoration: none;
     color: none;
     color: #ABDF75;
+
 }
+
 
 input{
     padding: 20px;
