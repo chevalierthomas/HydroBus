@@ -1,21 +1,45 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>modifier un département</title>
+    <title>modifier une révision reçue par un réservoir</title>
 {% endblock %}
 
 {% block body %}
-  <h2>modifier un département</h2>
+  <h2>modifier une révision reçue par un réservoir</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
-  <form method="post" action="/departements/edit">
+
+  <form method="post" action="/recoit/edit">
     <fieldset>
-        <legend> Modifier un département</legend>
-        <input type="hidden" name="id" size="18" value="{{ departements.id  }}" id="id"><br>
-        <label for="nomDepartement">Département</label><br>
-        <input type="text" name="nomDepartement" size="18" value="{{ departements.nomDepartement  }}" id="nomDepartement"><br>
-        <input type="submit" value="Modifier" name="Modifier" >
+        <legend> Modifier une révision reçue</legend>
+        <input type="hidden" name="id-Recoit" value="{{ recoit.idRecoit }}">
+        <label for="date-Revision">Date de la révision reçue</label>
+        <br>
+        <input id="date-Revision" type="date" name="date-Revision" size="18" value="{{ recoit.dateRevisionReservoir }}">
+        <br>
+        <br>
+        <label for="id-Revision">Révision reçue</label>
+        <br>
+        <select id="id-Revision" name="id-Revision" required>
+            <option value="{{ recoit.idRevision }}">{{ recoit.idRevision }}</option>
+            {% for type in revision %}
+                <option value="{{ type.idRevision }}"> {{ type.idRevision }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="id-Reservoir">Bus</label>
+        <br>
+        <select id="id-Reservoir" name="id-Reservoir" required>
+            <option value="{{ recoit.idReservoir }}">{{ recoit.idReservoir }}</option>
+            {% for type in reservoir %}
+                <option value="{{ type.idReservoir }}"> {{ type.idReservoir }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <input type="submit" value="Editer" name="Editer" >
     </fieldset>
   </form>
 {% endblock %}

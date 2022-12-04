@@ -115,6 +115,7 @@ def valid_edit_reservoir():
     flash(message, 'alert-warning')
     return redirect('/reservoir/show')
 
+
 @app.route('/fait/show')
 def show_fait():
     bdd = get_db().cursor()
@@ -152,19 +153,144 @@ def valid_add_fait():
               VALUES (%s, %s, %s)"""
     bdd.execute(sql,(dateRevisionBus, idRevision, idBus))
     get_db().commit()
-    message = u'Révision faite ajouté, date de la révision : ' + dateRevisionBus + ', idRévision: '+ idRevision + ', idBus : ' + idBus
+    message = u'Révision faite ajoutée, date de la révision : ' + dateRevisionBus + ', idRévision: '+ idRevision + ', idBus : ' + idBus
     flash(message, 'alert-success')
     return redirect('/fait/show')
 @app.route('/fait/delete', methods=['GET'])
 def delete_fait():
+    idFait = request.args.get('id', '')
+    bdd = get_db().cursor()
+    sql = "DELETE FROM fait WHERE idFait = %s"
+    bdd.execute(sql, idFait)
+    get_db().commit()
+    message = u'Révision faite supprimée, ID: ' + idFait
+    flash(message, 'alert-danger')
     return redirect('/fait/show')
-
 @app.route('/fait/edit', methods=['GET'])
 def edit_fait():
-    return render_template('fait/edit_fait.html')
+    idFait = request.args.get('id', '')
+    bdd1 = get_db().cursor()
+    bdd2 = get_db().cursor()
+    bdd3 = get_db().cursor()
+    sql1 = """SELECT r.*
+              FROM revision r"""
+    sql2 = """SELECT f.*
+             FROM fait f
+             WHERE idFait = %s"""
+    sql3 = """SELECT b.*
+              FROM bus b"""
+    bdd1.execute(sql1)
+    bdd2.execute(sql2, (idFait))
+    bdd3.execute(sql3)
+    revision = bdd1.fetchall()
+    fait = bdd2.fetchone()
+    bus = bdd3.fetchall()
+    return render_template('fait/edit_fait.html', revision=revision, fait=fait, bus=bus)
 @app.route('/fait/edit', methods=['POST'])
 def valid_edit_fait():
+    bdd = get_db().cursor()
+    idFait = request.form.get('id-Fait', '')
+    dateRevisionBus = request.form.get('date-Revision', '')
+    idRevision = request.form.get('id-Revision', '')
+    idBus = request.form.get('id-Bus', '')
+    sql = """UPDATE fait
+             SET dateRevisionBus = %s,
+                 idRevision = %s,
+                 idBus = %s
+                 WHERE idFait = %s"""
+    bdd.execute(sql, [dateRevisionBus, idRevision, idBus, idFait])
+    get_db().commit()
+    message = u'Révision faite modifiée, date de la révision : ' + dateRevisionBus + ', Révision numéro : '+ idRevision + ', Bus : ' + idBus
+    flash(message, 'alert-warning')
     return redirect('/fait/show')
+
+@app.route('/recoit/show')
+def show_recoit():
+    bdd = get_db().cursor()
+    sql = """SELECT r.*, idRev.idRevision, idRes.idReservoir
+             FROM recoit r
+             LEFT JOIN revision idRev ON r.idRevision = idRev.idRevision
+             LEFT JOIN reservoir idRes ON r.idReservoir = idRes.idReservoir
+             ORDER BY r.idRecoit"""
+    bdd.execute(sql)
+    recoit = bdd.fetchall()
+    return render_template('recoit/show_recoit.html', recoit=recoit)
+@app.route('/recoit/add', methods=['GET'])
+def add_recoit():
+    bdd1 = get_db().cursor()
+    bdd2 = get_db().cursor()
+    sql1 = """SELECT rev.*
+              FROM revision rev"""
+    sql2 = """SELECT res.*
+              FROM reservoir res"""
+    bdd1.execute(sql1)
+    bdd2.execute(sql2)
+    revision = bdd1.fetchall()
+    reservoir = bdd2.fetchall()
+    return render_template('recoit/add_recoit.html', revision=revision, reservoir=reservoir)
+@app.route('/recoit/add', methods=['POST'])
+def valid_add_recoit():
+    dateRevisionReservoir = request.form.get('date-Revision', '')
+    idRevision = request.form.get('id-Revision', '')
+    idReservoir = request.form.get('id-Reservoir', '')
+    bdd = get_db().cursor()
+    sql = """INSERT INTO recoit (
+              dateRevisionReservoir,
+              idRevision,
+              idReservoir)
+              VALUES (%s, %s, %s)"""
+    bdd.execute(sql,(dateRevisionReservoir, idRevision, idReservoir))
+    get_db().commit()
+    message = u'Révision reçue ajoutée, date de la révision : ' + dateRevisionReservoir + ', idRévision: '+ idRevision + ', idReservoir : ' + idReservoir
+    flash(message, 'alert-success')
+    return redirect('/recoit/show')
+@app.route('/recoit/delete', methods=['GET'])
+def delete_recoit():
+    idRecoit = request.args.get('id', '')
+    bdd = get_db().cursor()
+    sql = "DELETE FROM recoit WHERE idRecoit = %s"
+    bdd.execute(sql, idRecoit)
+    get_db().commit()
+    message = u'Révision reçue supprimée, ID: ' + idRecoit
+    flash(message, 'alert-danger')
+    return redirect('/recoit/show')
+@app.route('/recoit/edit', methods=['GET'])
+def edit_recoit():
+    idRecoit = request.args.get('id', '')
+    bdd1 = get_db().cursor()
+    bdd2 = get_db().cursor()
+    bdd3 = get_db().cursor()
+    sql1 = """SELECT rev.*
+              FROM revision rev"""
+    sql2 = """SELECT rec.*
+             FROM recoit rec
+             WHERE idRecoit = %s"""
+    sql3 = """SELECT res.*
+              FROM reservoir res"""
+    bdd1.execute(sql1)
+    bdd2.execute(sql2, (idRecoit))
+    bdd3.execute(sql3)
+    revision = bdd1.fetchall()
+    recoit = bdd2.fetchone()
+    reservoir = bdd3.fetchall()
+    return render_template('recoit/edit_recoit.html', revision=revision, recoit=recoit, reservoir=reservoir)
+@app.route('/recoit/edit', methods=['POST'])
+def valid_edit_recoit():
+    bdd = get_db().cursor()
+    idRecoit = request.form.get('id-Recoit', '')
+    dateRevisionReservoir = request.form.get('date-Revision', '')
+    idRevision = request.form.get('id-Revision', '')
+    idReservoir = request.form.get('id-Reservoir', '')
+    sql = """UPDATE recoit
+             SET dateRevisionReservoir = %s,
+                 idRevision = %s,
+                 idReservoir = %s
+                 WHERE idRecoit = %s"""
+    bdd.execute(sql, [dateRevisionReservoir, idRevision, idReservoir, idRecoit])
+    get_db().commit()
+    message = u'Révision reçue modifiée, date de la révision : ' + dateRevisionReservoir + ', Révision numéro : '+ idRevision + ', Réservoir numéro : : ' + idReservoir
+    flash(message, 'alert-warning')
+    return redirect('/recoit/show')
 
 @app.route('/consommation/show')
 def show_consommation():
@@ -186,45 +312,12 @@ def valid_add_consommation():
 @app.route('/consommation/delete', methods=['GET'])
 def delete_consommation():
     return redirect('/consommation/show')
-@app.route('/consommation/delete', methods=['POST'])
-def valid_delete_consommation():
-    return redirect('/consommation/show')
 @app.route('/consommation/edit', methods=['GET'])
 def edit_consommation():
     return render_template('consommation/edit_consommation.html')
 @app.route('/consommation/edit', methods=['POST'])
 def valid_edit_consommation():
     return redirect('/consommation/show')
-
-@app.route('/recoit/show')
-def show_recoit():
-    bdd = get_db().cursor()
-    sql = """SELECT r.*, idRev.idRevision, idRes.idReservoir
-             FROM recoit r
-             LEFT JOIN revision idRev ON r.idRevision = idRev.idRevision
-             LEFT JOIN reservoir idRes ON r.idReservoir = idRes.idReservoir
-             ORDER BY r.idRecoit"""
-    bdd.execute(sql)
-    recoit = bdd.fetchall()
-    return render_template('recoit/show_recoit.html', recoit=recoit)
-@app.route('/recoit/add', methods=['GET'])
-def add_recoit():
-    return render_template('recoit/add_recoit.html')
-@app.route('/recoit/add', methods=['POST'])
-def valid_add_recoit():
-    return redirect('/recoit/show')
-@app.route('/recoit/delete', methods=['GET'])
-def delete_recoit():
-    return redirect('/recoit/show')
-@app.route('/recoit/delete', methods=['POST'])
-def valid_delete_recoit():
-    return redirect('/recoit/show')
-@app.route('/recoit/edit', methods=['GET'])
-def edit_recoit():
-    return render_template('recoit/edit_recoit.html')
-@app.route('/recoit/edit', methods=['POST'])
-def valid_edit_recoit():
-    return redirect('/recoit/show')
 
 
 if __name__ == '__main__':

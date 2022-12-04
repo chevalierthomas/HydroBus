@@ -1,20 +1,46 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>ajouter un département</title>
+    <title>ajouter une révision reçue</title>
 {% endblock %}
 
 {% block body %}
-  <h2>ajout d'un département</h2>
+  <h2>ajout d'une révision reçue par un réservoir</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
-  <form method="post" action="/departements/add" >
+
+  <form method="post" action="/recoit/add" >
     <fieldset>
-        <legend> Créer un département</legend>
-        <label for="libelle">libelle</label><br>
-        <input id="nomDepartement" type="text" name="libelle" size="18" value="" placeholder="Saisir le nom du département"><br>
+        <legend> Créer un révison reçue par un réservoir</legend>
+
+        <label for="date-Revision">Date de la révision reçue</label>
+        <br>
+        <input id="date-Revision" type="date" name="date-Revision" size="18" value="" placeholder="Saisir la date de la révision reçue">
+        <br>
+        <br>
+        <label for="id-Revision">Révision reçue</label>
+        <br>
+        <select id="id-Revision" name="id-Revision" required>
+            <option value="">Sélectionner la révision reçue</option>
+            {% for type in revision %}
+                <option value="{{ type.idRevision }}"> {{ type.idRevision }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="id-Reservoir">Réservoir</label>
+        <br>
+        <select id="id-Reservoir" name="id-Reservoir" required>
+            <option value="">Sélectionner le réservoir</option>
+            {% for type in reservoir %}
+                <option value="{{ type.idReservoir }}"> {{ type.idReservoir }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
         <input type="submit" value="Creer" name="Valider" >
+
     </fieldset>
   </form>
 {% endblock %}
