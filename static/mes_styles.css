@@ -44,16 +44,13 @@ tr{
 }
 .menuContent a{
     text-decoration: none;
-    color: none;
     color: #ABDF75;
 
 }
 .menuContent a:hover{
-    background-color: antiquewhite;
-    color: blue;
+    color: antiquewhite;
 
 }
-
 
 
 input{
@@ -63,10 +60,11 @@ input{
 a{
     border: solid;
     margin: 5px;
-
     padding: 10px;
     border-radius: 5px;
     text-underline: none;
+    color: green;
+
 }
 
 .toggleBtn{
@@ -108,6 +106,8 @@ a{
 
 h2{
     margin-left: 10px;
+
+
 }
 .remove{
     background-color: indianred;
