@@ -6,13 +6,13 @@
 
 {% block body %}
 <h3>Modèles</h3>
-<a href="/modele/add">ajouter un modèle</a>
+<a href="/modele/add">Ajouter un modèle</a>
 <br><br>
 
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>id du modèle</th><th>pression</th><th>capacité</th><th>option</th>
+            <th>Id du modèle</th><th>Pression</th><th>Capacité</th><th>Option</th>
         </tr>
     </thead>
     <tbody>
@@ -23,15 +23,15 @@
               <td>{{ ligne.pression }}</td>
               <td>{{ ligne.capacite }}</td>
               <td>
-                  <a class="edit" href="/modele/edit?id={{ ligne.idModele }}">editer</a>&nbsp;
-                  <a class="remove" href="/modele/delete?id={{ ligne.idModele }}" >supprimer</a>
+                  <a class="edit" href="/modele/edit?id={{ ligne.idModele }}">Éditer</a>&nbsp;
+                  <a class="remove" href="/modele/delete?id={{ ligne.idModele }}" >Supprimer</a>
               </td>
            </tr>
         {% endfor %}
     {% else %}
             <tr>
                   <td>
-                      pas de modèle
+                      Pas de modèle
                   </td>
            </tr>
     {% endif %}

@@ -1,18 +1,18 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>ajouter une révision reçue</title>
+    <title>Ajouter une révision reçue</title>
 {% endblock %}
 
 {% block body %}
-  <h2>ajout d'une révision reçue par un réservoir</h2>
+  <h2>Ajout d'une révision reçue par un réservoir</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
 
   <form method="post" action="/recoit/add" >
     <fieldset>
-        <legend> Créer un révison reçue par un réservoir</legend>
+        <legend> Créer une révison reçue par un réservoir</legend>
 
         <label for="date-Revision">Date de la révision reçue</label>
         <br>

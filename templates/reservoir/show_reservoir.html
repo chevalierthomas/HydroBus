@@ -9,7 +9,7 @@
  <div>
 
  <h3>Réservoirs</h3>
-<a href="/reservoir/add">ajouter un réservoir</a>
+<a href="/reservoir/add">Ajouter un réservoir</a>
 
  </div>
 
@@ -18,7 +18,7 @@
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>id du réservoir</th><th>id du modèle</th><th>id du bus</th><th>option</th>
+            <th>Id du réservoir</th><th>Id du modèle</th><th>Id du bus</th><th>Option</th>
         </tr>
     </thead>
     <tbody>
@@ -29,15 +29,15 @@
                <td>{{ ligne.idModele }}</td>
                <td>{{ ligne.idBus }}</td>
                <td>
-                   <a class="edit" href="/reservoir/edit?id={{ ligne.idReservoir }} ">editer</a>&nbsp;
-                   <a class="remove" href="/reservoir/delete?id={{ ligne.idReservoir }}" >supprimer</a>
+                   <a class="edit" href="/reservoir/edit?id={{ ligne.idReservoir }} ">Éditer</a>&nbsp;
+                   <a class="remove" href="/reservoir/delete?id={{ ligne.idReservoir }}" >Supprimer</a>
                </td>
            </tr>
         {% endfor %}
     {% else %}
             <tr>
                   <td>
-                      pas de réservoir
+                      Pas de réservoir
                   </td>
            </tr>
     {% endif %}

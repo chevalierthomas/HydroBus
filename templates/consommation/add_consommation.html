@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>ajouter une consommation</title>
+    <title>Ajouter une consommation</title>
 {% endblock %}
 
 {% block body %}
-  <h2>ajout d'une consommation</h2>
+  <h2>Ajout d'une consommation</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
@@ -21,7 +21,7 @@
         <br>
         <input required="required" id="distance" type="number" name="distance" size="18" value="" placeholder="Saisir la distance parcourue">
         <br>
-        <label for="anneeConsommation">Annee</label>
+        <label for="anneeConsommation">Année</label>
         <br>
         <select id="anneeConsommation" name="anneeConsommation" required>
             <option value="">Sélectionner l'année</option>

@@ -7,13 +7,13 @@
 {% block body %}
  <div>
     <h3>Bus</h3>
-        <a href="/bus/add">ajouter un bus</a>
+        <a href="/bus/add">Ajouter un bus</a>
  </div>
 <br>
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>id du bus</th><th>date d'achat du bus</th><th>option</th>
+            <th>Id du bus</th><th>Date d'achat du bus</th><th>Option</th>
         </tr>
     </thead>
     <tbody>
@@ -23,16 +23,16 @@
                <td>{{ ligne.idBus }}</td>
                <td>{{ ligne.dateAchat }}</td>
                <td>
-                   <a class="edit" href="/bus/edit?id={{ ligne.idBus }} ">editer</a>&nbsp;
-                   <a class="remove" href="/bus/delete?id={{ ligne.idBus }}" >supprimer</a>
-                    <a class="state" href="/bus/etat?id={{ ligne.idBus }}" >etat</a>
+                   <a class="edit" href="/bus/edit?id={{ ligne.idBus }} ">Éditer</a>&nbsp;
+                   <a class="remove" href="/bus/delete?id={{ ligne.idBus }}" >Supprimer</a>
+                    <a class="state" href="/bus/etat?id={{ ligne.idBus }}" >État</a>
                </td>
            </tr>
         {% endfor %}
     {% else %}
             <tr>
                   <td>
-                      pas de bus
+                      Pas de bus
                   </td>
            </tr>
     {% endif %}

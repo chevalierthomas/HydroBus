@@ -6,13 +6,13 @@
 
 {% block body %}
 <h3>Consommations</h3>
-<a href="/consommation/add">ajouter une consommation</a>
+<a href="/consommation/add">Ajouter une consommation</a>
 <br><br>
 
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>id de la consommation</th><th>Consommation</th><th>Distance</th><th>Année</th><th>id du bus</th><th>option</th>
+            <th>Id de la consommation</th><th>Consommation</th><th>Distance</th><th>Année</th><th>Id du bus</th><th>Option</th>
         </tr>
     </thead>
     <tbody>
@@ -25,15 +25,15 @@
               <td>{{ ligne.annee }}</td>
               <td>{{ ligne.idBus }}</td>
               <td>
-                  <a class="edit" href="/consommation/edit?id={{ ligne.idConsommation }}">editer</a>&nbsp;
-                  <a class="remove" href="/consommation/delete?id={{ ligne.idConsommation }}" >supprimer</a>
+                  <a class="edit" href="/consommation/edit?id={{ ligne.idConsommation }}">Éditer</a>&nbsp;
+                  <a class="remove" href="/consommation/delete?id={{ ligne.idConsommation }}" >Supprimer</a>
               </td>
            </tr>
         {% endfor %}
     {% else %}
             <tr>
                   <td>
-                      pas de consommation
+                      Pas de consommation
                   </td>
            </tr>
     {% endif %}

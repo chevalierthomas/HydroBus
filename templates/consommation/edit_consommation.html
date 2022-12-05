@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>modifier une consommation</title>
+    <title>Modifier une consommation</title>
 {% endblock %}
 
 {% block body %}
-  <h2>modifier une consommation</h2>
+  <h2>Modifier une consommation</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
@@ -22,7 +22,7 @@
         <br>
         <input id="distance" type="number" name="distance" size="18" value="{{ consommation.distance }}">
         <br>
-        <label for="anneeConsommation">Annee</label>
+        <label for="anneeConsommation">Année</label>
         <br>
         <select id="anneeConsommation" name="anneeConsommation" required>
             <option value="{{ consommation.annee }}">{{ consommation.annee }}</option>

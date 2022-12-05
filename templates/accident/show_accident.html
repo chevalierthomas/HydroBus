@@ -6,13 +6,13 @@
 
 {% block body %}
 <h3>Accidents</h3>
-<a href="/fait/add">ajouter un accident</a>
+<a href="/fait/add">Ajouter un accident</a>
 <br><br>
 
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>id de l'accident</th><th>Date de l'accident</th><th>id du type d'incident</th><th>id du bus</th><th>option</th>
+            <th>Id de l'accident</th><th>Date de l'accident</th><th>Id du type d'incident</th><th>Id du bus</th><th>Option</th>
         </tr>
     </thead>
     <tbody>
@@ -24,15 +24,15 @@
               <td>{{ ligne.idType }}</td>
               <td>{{ ligne.idBus }}</td>
               <td>
-                  <a class="edit" href="/accident/edit?id={{ ligne.idAccident }}">editer</a>&nbsp;
-                  <a class="remove" href="/accident/delete?id={{ ligne.idAccident }}" >supprimer</a>
+                  <a class="edit" href="/accident/edit?id={{ ligne.idAccident }}">Éditer</a>&nbsp;
+                  <a class="remove" href="/accident/delete?id={{ ligne.idAccident }}" >Supprimer</a>
               </td>
            </tr>
         {% endfor %}
     {% else %}
             <tr>
                   <td>
-                      pas d'accident
+                      Pas d'accident
                   </td>
            </tr>
     {% endif %}

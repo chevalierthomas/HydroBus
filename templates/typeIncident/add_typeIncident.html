@@ -1,18 +1,18 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>ajouter un type d'incident</title>
+    <title>Ajouter un type d'incident</title>
 {% endblock %}
 
 {% block body %}
-  <h2>ajout d'un type d'incident</h2>
+  <h2>Ajout d'un type d'incident</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
   <form method="post" action="/typeIncident/add" >
     <fieldset>
         <legend> Créer un type d'incident</legend>
-        <label for="libelle-Type">Révision</label>
+        <label for="libelle-Type">Libellé du type d'incident</label>
         <br>
         <input required="required" id="libelle-Type" type="text" name="libelle-Type" size="18" value="" placeholder="Saisir le libellé">
         <br>

@@ -7,13 +7,13 @@
 {% block body %}
  <div>
     <h3>Types d'incidents</h3>
-        <a href="/typeIncident/add">ajouter un type d'incident</a>
+        <a href="/typeIncident/add">Ajouter un type d'incident</a>
  </div>
 <br>
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>id du type d'incident</th><th>libellé du type</th><th>option</th>
+            <th>Id du type d'incident</th><th>Libellé du type</th><th>Option</th>
         </tr>
     </thead>
     <tbody>
@@ -23,15 +23,15 @@
                <td>{{ ligne.idType }}</td>
                <td>{{ ligne.libelleType }}</td>
                <td>
-                   <a class="edit" href="/typeIncident/edit?id={{ ligne.idType }} ">editer</a>&nbsp;
-                   <a class="remove" href="/typeIncident/delete?id={{ ligne.idType }}" >supprimer</a>
+                   <a class="edit" href="/typeIncident/edit?id={{ ligne.idType }} ">Éditer</a>&nbsp;
+                   <a class="remove" href="/typeIncident/delete?id={{ ligne.idType }}" >Supprimer</a>
                </td>
            </tr>
         {% endfor %}
     {% else %}
             <tr>
                   <td>
-                      pas de type d'incident
+                      Pas de type d'incident
                   </td>
            </tr>
     {% endif %}

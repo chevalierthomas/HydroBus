@@ -6,13 +6,13 @@
 
 {% block body %}
 <h3>Révisions reçues</h3>
-<a href="/recoit/add">ajouter une révison reçue</a>
+<a href="/recoit/add">Ajouter une révison reçue</a>
 <br><br>
 
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>id reçoit</th><th>Date de la révision reçue</th><th>id de la révision</th><th>id du réservoir</th><th>option</th>
+            <th>Id reçoit</th><th>Date de la révision reçue</th><th>Id de la révision</th><th>Id du réservoir</th><th>Option</th>
         </tr>
     </thead>
     <tbody>
@@ -24,15 +24,15 @@
                   <td>{{ ligne.idRevision }}</td>
                   <td>{{ ligne.idReservoir }}</td>
                   <td>
-                      <a class="edit" href="/recoit/edit?id={{ ligne.idRecoit }}">editer</a>&nbsp;
-                      <a class="remove" href="/recoit/delete?id={{ ligne.idRecoit }}" >supprimer</a>
+                      <a class="edit" href="/recoit/edit?id={{ ligne.idRecoit }}">Éditer</a>&nbsp;
+                      <a class="remove" href="/recoit/delete?id={{ ligne.idRecoit }}" >Supprimer</a>
                   </td>
            </tr>
         {% endfor %}
     {% else %}
             <tr>
                   <td>
-                      pas de révision dernièrement reçu
+                      Pas de révision reçue dernièrement
                   </td>
            </tr>
     {% endif %}

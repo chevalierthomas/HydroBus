@@ -1,18 +1,18 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>ajouter une révision faite</title>
+    <title>Ajouter une révision faite</title>
 {% endblock %}
 
 {% block body %}
-  <h2>ajout d'une révision faite par un bus</h2>
+  <h2>Ajout d'une révision faite par un bus</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
 
   <form method="post" action="/fait/add" >
     <fieldset>
-        <legend> Créer un révison faite par un bus</legend>
+        <legend> Créer une révison faite par un bus</legend>
 
         <label for="date-Revision">Date de la révision faite</label>
         <br>

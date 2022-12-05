@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>modifier un type d'incident</title>
+    <title>Modifier un type d'incident</title>
 {% endblock %}
 
 {% block body %}
-  <h2>modifier un type d'incident</h2>
+  <h2>Modifier un type d'incident</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
@@ -13,7 +13,7 @@
     <fieldset>
         <input type="hidden" name="id-Type" value="{{ typeIncident.idType }}">
         <legend> Modifier un type d'incident</legend>
-        <label for="libelle-Type">Libellé du type</label>
+        <label for="libelle-Type">Libellé du type d'incident</label>
         <br>
         <input required="required" id="libelle-Type" type="text" name="libelle-Type" size="18" value="{{ typeIncident.libelleType }}">
         <br>

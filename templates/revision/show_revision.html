@@ -7,13 +7,13 @@
 {% block body %}
  <div>
     <h3>Révision</h3>
-        <a href="/revision/add">ajouter une révision</a>
+        <a href="/revision/add">Ajouter une révision</a>
  </div>
 <br>
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>id révision</th><th>observation</th><th>option</th>
+            <th>Id révision</th><th>Observation</th><th>Option</th>
         </tr>
     </thead>
     <tbody>
@@ -23,15 +23,15 @@
                <td>{{ ligne.idRevision }}</td>
                <td>{{ ligne.observation }}</td>
                <td>
-                   <a class="edit" href="/revision/edit?id={{ ligne.idRevision }} ">editer</a>&nbsp;
-                   <a class="remove" href="/revision/delete?id={{ ligne.idRevision }}" >supprimer</a>
+                   <a class="edit" href="/revision/edit?id={{ ligne.idRevision }} ">Éditer</a>&nbsp;
+                   <a class="remove" href="/revision/delete?id={{ ligne.idRevision }}" >Supprimer</a>
                </td>
            </tr>
         {% endfor %}
     {% else %}
             <tr>
                   <td>
-                      pas de révision
+                      Pas de révision
                   </td>
            </tr>
     {% endif %}
