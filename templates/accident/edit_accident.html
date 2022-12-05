@@ -1,21 +1,45 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>modifier un département</title>
+    <title>modifier un accident</title>
 {% endblock %}
 
 {% block body %}
-  <h2>modifier un département</h2>
+  <h2>modifier un accident</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
-  <form method="post" action="/departements/edit">
+
+  <form method="post" action="/accident/edit">
     <fieldset>
-        <legend> Modifier un département</legend>
-        <input type="hidden" name="id" size="18" value="{{ departements.id  }}" id="id"><br>
-        <label for="nomDepartement">Département</label><br>
-        <input type="text" name="nomDepartement" size="18" value="{{ departements.nomDepartement  }}" id="nomDepartement"><br>
-        <input type="submit" value="Modifier" name="Modifier" >
+        <legend> Modifier un accident</legend>
+        <input type="hidden" name="id-Accident" value="{{ accident.idAccident }}">
+        <label for="date-Accident">Date de l'accident</label>
+        <br>
+        <input id="date-Accident" type="date" name="date-Accident" size="18" value="{{ accident.dateAccident }}">
+        <br>
+        <br>
+        <label for="id-Type">Type d'incident</label>
+        <br>
+        <select id="id-Type" name="id-Type" required>
+            <option value="{{ accident.idType }}">{{ accident.idType }}</option>
+            {% for type in typeIncident %}
+                <option value="{{ type.idType }}"> {{ type.idType }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="id-Bus">Bus</label>
+        <br>
+        <select id="id-Bus" name="id-Bus" required>
+            <option value="{{ fait.idBus }}">{{ fait.idBus }}</option>
+            {% for type in bus %}
+                <option value="{{ type.idBus }}"> {{ type.idBus }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <input type="submit" value="Editer" name="Editer" >
     </fieldset>
   </form>
 {% endblock %}

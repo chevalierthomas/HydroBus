@@ -5,32 +5,34 @@
 {% endblock %}
 
 {% block body %}
-<h3>Départements</h3>
-<a href="/departements/add">ajouter un département</a>
+<h3>Accidents</h3>
+<a href="/fait/add">ajouter un accident</a>
 <br><br>
 
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>id</th><th>designation</th><th>opération</th>
+            <th>id de l'accident</th><th>Date de l'accident</th><th>id du type d'incident</th><th>id du bus</th><th>option</th>
         </tr>
     </thead>
     <tbody>
-    {% if departements | length >= 1 %}
-        {% for ligne in departements %}
+    {% if accident | length >= 1 %}
+        {% for ligne in accident %}
            <tr>
-                  <td>{{ ligne.id }}</td>
-                  <td>{{ ligne.nomDepartement }}</td>
-                  <td>
-                      <a class="edit" href="/departements/edit?id={{ ligne.id }}&amp;param2={{ligne.nomDepartement  }}">editer</a>&nbsp;
-                      <a class="remove" href="/departements/delete?id={{ ligne.id }}" >supprimer</a>
-                  </td>
+              <td>{{ ligne.idAccident }}</td>
+              <td>{{ ligne.dateAccident }}</td>
+              <td>{{ ligne.idType }}</td>
+              <td>{{ ligne.idBus }}</td>
+              <td>
+                  <a class="edit" href="/accident/edit?id={{ ligne.idAccident }}">editer</a>&nbsp;
+                  <a class="remove" href="/accident/delete?id={{ ligne.idAccident }}" >supprimer</a>
+              </td>
            </tr>
         {% endfor %}
     {% else %}
             <tr>
                   <td>
-                      pas de département
+                      pas d'accident
                   </td>
            </tr>
     {% endif %}

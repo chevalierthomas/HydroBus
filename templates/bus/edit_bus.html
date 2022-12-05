@@ -1,21 +1,23 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>modifier un département</title>
+    <title>modifier un bus</title>
 {% endblock %}
 
 {% block body %}
-  <h2>modifier un département</h2>
+  <h2>modifier un bus</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
-  <form method="post" action="/departements/edit">
+  <form method="post" action="/bus/edit">
     <fieldset>
-        <legend> Modifier un département</legend>
-        <input type="hidden" name="id" size="18" value="{{ departements.id  }}" id="id"><br>
-        <label for="nomDepartement">Département</label><br>
-        <input type="text" name="nomDepartement" size="18" value="{{ departements.nomDepartement  }}" id="nomDepartement"><br>
-        <input type="submit" value="Modifier" name="Modifier" >
+        <input type="hidden" name="id-Bus" value="{{ bus.idBus }}">
+        <legend> Modifier un bus</legend>
+        <label for="date-achat">Bus</label>
+        <br>
+        <input required="required" id="date-achat" type="date" name="date-achat" size="18" value="{{ bus.dateAchat }}">
+        <br>
+        <input type="submit" value="Editer" name="Editer" >
     </fieldset>
   </form>
 {% endblock %}

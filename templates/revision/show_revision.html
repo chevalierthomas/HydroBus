@@ -1,36 +1,37 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>Afficher les départements</title>
+    <title>Afficher les révisions</title>
 {% endblock %}
 
 {% block body %}
-<h3>Départements</h3>
-<a href="/departements/add">ajouter un département</a>
-<br><br>
-
+ <div>
+    <h3>Révision</h3>
+        <a href="/revision/add">ajouter une révision</a>
+ </div>
+<br>
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>id</th><th>designation</th><th>opération</th>
+            <th>id révision</th><th>observation</th><th>option</th>
         </tr>
     </thead>
     <tbody>
-    {% if departements | length >= 1 %}
-        {% for ligne in departements %}
+    {% if revision | length >= 1 %}
+        {% for ligne in revision %}
            <tr>
-                  <td>{{ ligne.id }}</td>
-                  <td>{{ ligne.nomDepartement }}</td>
-                  <td>
-                      <a class="edit" href="/departements/edit?id={{ ligne.id }}&amp;param2={{ligne.nomDepartement  }}">editer</a>&nbsp;
-                      <a class="remove" href="/departements/delete?id={{ ligne.id }}" >supprimer</a>
-                  </td>
+               <td>{{ ligne.idRevision }}</td>
+               <td>{{ ligne.observation }}</td>
+               <td>
+                   <a class="edit" href="/revision/edit?id={{ ligne.idRevision }} ">editer</a>&nbsp;
+                   <a class="remove" href="/revision/delete?id={{ ligne.idRevision }}" >supprimer</a>
+               </td>
            </tr>
         {% endfor %}
     {% else %}
             <tr>
                   <td>
-                      pas de département
+                      pas de révision
                   </td>
            </tr>
     {% endif %}
