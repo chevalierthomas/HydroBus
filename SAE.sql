@@ -124,7 +124,8 @@ INSERT INTO typeIncident (idType,libelleType) VALUES
 INSERT INTO anneeConsommation (annee) VALUES
 (2020),
 (2021),
-(2022)
+(2022),
+(2023)
 ;
 
 INSERT INTO fait (idFait, idBus,idRevision,dateRevisionBus) VALUES
