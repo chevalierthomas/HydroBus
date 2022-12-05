@@ -591,7 +591,7 @@ def valid_edit_accident():
              SET dateAccident = %s,
                  idType = %s,
                  idBus = %s
-                 WHERE idccident = %s"""
+                 WHERE idAccident = %s"""
     bdd.execute(sql, [dateAccident, idType, idBus, idAccident])
     get_db().commit()
     message = u'Accident modifié, date de l-accident : ' + dateAccident + ', id du type d-incident : '+ idType + ', Bus : ' + idBus
