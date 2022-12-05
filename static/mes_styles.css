@@ -7,7 +7,7 @@ table ,tr {
     height: 40px;
   border-collapse: collapse;
   border: 1px solid darkblue;
-  background-color: #ABDF75;
+  background-color: lightgrey;
     color: black;
 }
 
@@ -48,6 +48,12 @@ tr{
     color: #ABDF75;
 
 }
+.menuContent a:hover{
+    background-color: antiquewhite;
+    color: blue;
+
+}
+
 
 
 input{
@@ -104,14 +110,23 @@ h2{
     margin-left: 10px;
 }
 .remove{
-    background-color: #f55353;
+    background-color: indianred;
     color: black;
     text-decoration: none;
     border-radius: 0px;
     padding: 5px;
 }
 .edit{
-    background-color: green;
+    background-color: forestgreen;
+    color: black;
+    text-decoration: none;
+    border-radius: 0px;
+    padding: 5px;
+}
+
+
+.state{
+    background-color: cornflowerblue;
     color: black;
     text-decoration: none;
     border-radius: 0px;

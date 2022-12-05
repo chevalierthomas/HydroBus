@@ -43,6 +43,48 @@ def show_bus():
     bdd.execute(sql)
     bus = bdd.fetchall()
     return render_template('bus/show_bus.html', bus=bus)
+@app.route('/bus/etat', methods=['GET'])
+def etat_bus():
+    idBus = request.args.get('id', '')
+    bdd1 = get_db().cursor()
+    bdd2 = get_db().cursor()
+    bdd3 = get_db().cursor()
+    bdd4 = get_db().cursor()
+    bdd5 = get_db().cursor()
+    sql1 = """SELECT b.*, COUNT(a.idBus) AS nb_accident
+             FROM bus b
+             LEFT JOIN accident a ON b.idBus = a.idBus
+             WHERE b.idBus = %s"""
+    sql2 = """SELECT b.*, MAX(c.nbconsommation) AS max_consommation
+              FROM bus b
+              LEFT JOIN consommation c ON b.idBus = c.idBus
+              WHERE b.idBus = %s"""
+    sql3 = """SELECT b.*, COUNT(f.idBus) AS nb_revision
+             FROM bus b
+             LEFT JOIN fait f ON b.idBus = f.idBus
+             WHERE b.idBus = %s"""
+    sql4 = """SELECT b.*, MAX(f.dateRevisionBus) AS revision_recente
+             FROM bus b
+             LEFT JOIN fait f ON b.idBus = f.idBus
+             WHERE b.idBus = %s"""
+    sql5 = """SELECT b.*, SUM(c.distance) AS somme_distance
+             FROM bus b
+             LEFT JOIN consommation c ON b.idBus = c.idBus
+             WHERE b.idBus = %s"""
+    bdd1.execute(sql1, [idBus])
+    bdd2.execute(sql2, [idBus])
+    bdd3.execute(sql3, [idBus])
+    bdd4.execute(sql4, [idBus])
+    bdd5.execute(sql5, [idBus])
+    bus = bdd1.fetchone()
+    bus2 = bdd2.fetchone()
+    bus3 = bdd3.fetchone()
+    bus4 = bdd4.fetchone()
+    bus5 = bdd5.fetchone()
+    return render_template('bus/etat_bus.html', bus=bus, bus2=bus2, bus3=bus3, bus4=bus4, bus5=bus5)
+@app.route('/bus/valid_etat', methods=['POST'])
+def valid_etat_bus():
+    return redirect('/bus/show')
 @app.route('/bus/add', methods=['GET'])
 def add_bus():
     bdd = get_db().cursor()

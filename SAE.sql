@@ -130,9 +130,12 @@ INSERT INTO anneeConsommation (annee) VALUES
 
 INSERT INTO fait (idFait, idBus,idRevision,dateRevisionBus) VALUES
 (NULL,1,1,'2022-08-01'),
-(NULL,2,2,'2022-09-01'),
+(NULL,2,2,'2022-09-02'),
 (NULL,3,3,'2021-08-10'),
-(NULL,4,4,'2020-10-27')
+(NULL,4,4,'2020-10-27'),
+(NULL,5,4,'2021-01-01'),
+(NULL,2,1,'2021-08-11'),
+(NULL,2,3,'2020-07-07')
 ;
 
 INSERT INTO accident(idAccident, dateAccident, idType, idBus) VALUES
@@ -183,4 +186,7 @@ SELECT * FROM accident;
 SELECT * FROM consommation;
 SELECT * FROM reservoir;
 SELECT * FROM recoit;
+
+SELECT * FROM fait
+WHERE dateRevisionBus IN (SELECT max(dateRevisionBus) FROM fait);
 */

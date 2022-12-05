@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Etat d'un réservoir</title>
+{% endblock %}
+
+{% block body %}
+    <h2>Page d'êtat</h2>
+    {% if error %}
+        <p class=error><strong>Error:</strong> {{ error }}
+    {% endif %}
+    <form method="post" action="/bus/valid_etat">
+        <fieldset>
+            <input type="hidden" name="id" value="{{ bus.idBus }}">
+            <p>
+                <strong>Nombre d'accident subit : </strong>Le bus {{bus.idBus}} a eu {{bus.nb_accident}} accident(s).
+            </p>
+            <br>
+            <p>
+                <strong>Maximum consommée en 1 année : </strong>Le bus {{bus2.idBus}} a consommé au maximum {{bus2.max_consommation}} Kg d'Hydrogène en 1 an.
+            </p>
+            <br>
+            <p>
+                <strong>Révision la plus récente : </strong>Le bus {{bus3.idBus}} a fait {{ bus3.nb_revision }} révision(s).
+                {% if bus3.nb_revision >= 1 %}
+                    Et la plus récente s'est faite le {{ bus4.revision_recente }}
+                {%  else  %}
+                    Il ne possède pas de révision.
+                {% endif %}
+            </p>
+            <br>
+            <p>
+                <strong>Total kilomètres parcourues : </strong>Le bus {{bus5.idBus}} a parcourue {{ bus5.somme_distance }} kilomètres.
+            </p>
+            <input type="submit" value="Retour" name="Retour">
+        </fieldset>
+    </form>
+{% endblock %}
