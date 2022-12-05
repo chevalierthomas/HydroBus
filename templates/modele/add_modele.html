@@ -1,27 +1,19 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>ajouter un modèle</title>
+    <title>ajouter un département</title>
 {% endblock %}
 
 {% block body %}
-  <h2>ajout d'un modèle</h2>
+  <h2>ajout d'un département</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
-
-  <form method="post" action="/modele/add" >
+  <form method="post" action="/departements/add" >
     <fieldset>
-        <legend> Créer un modèle</legend>
-
-        <label for="pression">Pression</label>
-        <br>
-        <input required="required" id="pression" type="number" name="pression" size="18" value="" placeholder="Saisir la pression">
-        <br>
-        <label for="capacite">Capacité</label>
-        <br>
-        <input required="required" id="capacite" type="number" name="capacite" size="18" value="" placeholder="Saisir la capacité">
-        <br>
+        <legend> Créer un département</legend>
+        <label for="libelle">libelle</label><br>
+        <input id="nomDepartement" type="text" name="libelle" size="18" value="" placeholder="Saisir le nom du département"><br>
         <input type="submit" value="Creer" name="Valider" >
     </fieldset>
   </form>

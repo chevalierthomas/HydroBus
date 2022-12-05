@@ -1,28 +1,21 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>Modifier un modèle</title>
+    <title>modifier un département</title>
 {% endblock %}
 
 {% block body %}
-  <h2>modifier un modèle</h2>
+  <h2>modifier un département</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
-
-  <form method="post" action="/modele/edit">
+  <form method="post" action="/departements/edit">
     <fieldset>
-        <legend> Modifier un modèle</legend>
-        <input type="hidden" name="id-Modele" value="{{ modele.idModele }}">
-        <label for="pression">Pression</label>
-        <br>
-        <input id="pression" type="number" name="pression" size="18" value="{{ modele.pression }}">
-        <br>
-        <label for="capacite">Capacité</label>
-        <br>
-        <input id="capacite" type="number" name="capacite" size="18" value="{{ modele.capacite }}">
-        <br>
-        <input type="submit" value="Editer" name="Editer" >
+        <legend> Modifier un département</legend>
+        <input type="hidden" name="id" size="18" value="{{ departements.id  }}" id="id"><br>
+        <label for="nomDepartement">Département</label><br>
+        <input type="text" name="nomDepartement" size="18" value="{{ departements.nomDepartement  }}" id="nomDepartement"><br>
+        <input type="submit" value="Modifier" name="Modifier" >
     </fieldset>
   </form>
 {% endblock %}

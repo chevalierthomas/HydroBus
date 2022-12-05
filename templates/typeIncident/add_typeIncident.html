@@ -1,22 +1,19 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>ajouter un type d'incident</title>
+    <title>ajouter un département</title>
 {% endblock %}
 
 {% block body %}
-  <h2>ajout d'un type d'incident</h2>
+  <h2>ajout d'un département</h2>
   {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
   {% endif %}
-  <form method="post" action="/typeIncident/add" >
+  <form method="post" action="/departements/add" >
     <fieldset>
-        <legend> Créer un type d'incident</legend>
-        <label for="libelle-Type">Révision</label>
-        <br>
-        <input required="required" id="libelle-Type" type="text" name="libelle-Type" size="18" value="" placeholder="Saisir le libellé">
-        <br>
-        <br>
+        <legend> Créer un département</legend>
+        <label for="libelle">libelle</label><br>
+        <input id="nomDepartement" type="text" name="libelle" size="18" value="" placeholder="Saisir le nom du département"><br>
         <input type="submit" value="Creer" name="Valider" >
     </fieldset>
   </form>
